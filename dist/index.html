@@ -7,11 +7,44 @@
   <title>Document</title>
 </head>
 <body>
+  <form id="myForm">
+    <input type="text" name="name" required />
+    <input type="text" name="phoneNo" required />
+    <input type="email" name="email" required />
+    <button type="submit">Submit</button>
+  </form>
+
+  <button id="btn-landing">landing</button>
+  
   <script src="coupon.js"></script>
   <script>
-    const coupon = new Coupon();
-
-    coupon.init();
+    const coupon = new Coupon({
+      userId: 3213, 
+      studioId: 95, 
+      tabId: 1, 
+      trackId: 2612,
+      form: {
+        id: 'myForm',
+        callback: function(err, result) {
+          if (err) throw new Error(err);
+          console.log(result)
+        }
+      },
+      store: 1, // default 1
+      multiple: false,
+      uniqueCode: 'number', // input's name
+      trackers: {
+        impression: ['http://google.com'], 
+        submit: ['http://google.com'],
+        landing: ['http://google.com'],
+        redirect: ['http://google.com']
+      },
+      landing: {
+        id: 'btn-landing',
+        url: 'http://google.com'
+      },
+      redirectUrl: 'http://google.com'
+    });
   </script> 
 </body>
 </html>
