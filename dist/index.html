@@ -16,7 +16,7 @@
 
   <button id="btn-landing">landing</button>
   
-  <script src="coupon.js"></script>
+  <script src="coupon.min.js"></script>
   <script>
     const coupon = new Coupon({
       userId: 3213, 
@@ -31,10 +31,10 @@
         }
       },
       store: 1, // default 1
-      multiple: false,
-      uniqueCode: 'number', // input's name
+      multiple: true,
+      uniqueCode: 'phoneNo', // input's name
       trackers: {
-        impression: ['http://google.com'], 
+        impression: ['http://google.com'],
         submit: ['http://google.com'],
         landing: ['http://google.com'],
         redirect: ['http://google.com']
@@ -43,7 +43,8 @@
         id: 'btn-landing',
         url: 'http://google.com'
       },
-      redirectUrl: 'http://google.com'
+      redirectUrl: 'http://google.com',
+      preview: true
     });
   </script> 
 </body>

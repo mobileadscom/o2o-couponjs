@@ -4,7 +4,7 @@ module.exports = {
   entry: ['babel-polyfill', './src/index.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'coupon.js'
+    filename: 'coupon.min.js'
   },
   module: {
     rules: [

@@ -38,7 +38,8 @@ class Coupon {
     recipients, // [Optional] List of email to receive data
     referredUrl, // [Optional] Referred Url or extra data want to include/track
     redirectUrl, // [Optional] Coupon success redirect url
-    multiple // [Optional] if multiple store
+    multiple, // [Optional] If multiple store
+    preview // [Optional] , Default: true 
   }) {
     try {
       this.config = {
@@ -49,8 +50,10 @@ class Coupon {
         form,
         uniqueCode
       }
+
+      this.preview = preview || false;
       
-      // Check every config that it is existing / this are the required fields
+      // Check every config that it is existing / these are the required fields
       const configCheck = Object.keys(this.config).filter(key => this.config[key] === undefined || !this.config[key])
       if (configCheck.length > 0) {
         const neededConfig = configCheck.reduce((msg, config, index) => {
@@ -66,18 +69,18 @@ class Coupon {
         throw new Error('We need id property for form object. Please enter the id for your form.')
       }
 
-      if (!this.form.querySelector('[type=submit]')) {
-        throw new Error('We need at least one type=submit in your form.')
+      if (this.form.querySelectorAll('[type=submit], [type=image]').length === 0) {
+        throw new Error('We need at least one type=submit/type=image in your form.')
       }
   
       let fieldCheck = [];
       this.fields = Object.values(this.form.elements).filter(elem => {
-        if (!elem.name && elem.nodeName === 'INPUT') throw new Error('We need name attribute for every input field in your form. Check every input.')
-        if ((elem.name === 'name' || elem.name === 'phoneNo' || elem.name === 'email') && elem.nodeName === 'INPUT') {
+        if (!elem.name && elem.nodeName === 'INPUT' && elem.type !== 'image') throw new Error('We need name attribute for every input field in your form. Check every input.')
+        if ((elem.name === 'name' || elem.name === 'phoneNo' || elem.name === 'email') && elem.nodeName === 'INPUT' && elem.type !== 'image') {
           if (!elem.placeholder) elem.placeholder = elem.name === 'phoneNo' ? 'Phone Number' : elem.name.charAt(0).toUpperCase() + elem.name.slice(1);
           fieldCheck.push(elem.name)
         }
-        return elem.nodeName === 'INPUT'
+        return elem.nodeName === 'INPUT' && elem.type !== 'image'
       });
 
       if (fieldCheck.length < 3) {
@@ -88,13 +91,13 @@ class Coupon {
   
       this.recipients = recipients || ''
       this.referredUrl = referredUrl || ''
-      this.trackers = trackers || false
-      this.landing = landing || false
-      this.redirectUrl = redirectUrl || false
+      this.trackers = trackers || false;
+      this.landing = landing || false;
+      this.redirectUrl = redirectUrl || false;
       this.store = store || 1;
-      this.multiple = multiple
+      this.multiple = multiple || false;
 
-      if (this.trackers.impression) {
+      if (this.trackers.impression && !this.preview) {
         imgTrack(this.trackers.impression);
       }
 
@@ -102,7 +105,7 @@ class Coupon {
         const btn = document.getElementById(this.landing.id)
         btn.onclick = () => {
           window.location = this.landing.url
-          if (this.trackers.landing) {
+          if (this.trackers.landing && !this.preview) {
             imgTrack(this.trackers.landing)
           }
         }
@@ -155,8 +158,13 @@ class Coupon {
       submissionUrl += `&callback=leadGenCallback`
 
       e.preventDefault();
-
-      const leadgenSubmission = await LoadJS(submissionUrl);
+      if (this.preview) {
+        this.handleLeadgenCallback({
+          status: true
+        })
+      } else {
+        const leadgenSubmission = await LoadJS(submissionUrl);
+      }
       return await false;
     } catch(err) {
       e.preventDefault();
@@ -167,31 +175,42 @@ class Coupon {
 
   async handleLeadgenCallback (res) {
     try {
-      if (res.status) throw new Error('Failed to submit leadgen data.')
+      if (!res.status) throw new Error('Failed to submit leadgen data.')
 
-      const { data } = await axios.post(`https://www.mobileads.com/api/coupon/generate_coupon?phoneNo=${this.form.elements['phoneNo'].value}&userId=${this.config.userId}&studioId=${this.config.studioId}&email=${this.form.elements['email'].value}&name=${this.form.elements['name'].value}`)
+      let data = {
+        status: true,
+        code: this.form.elements[this.config.uniqueCode].value
+      }
+
+      if (!this.preview) {
+        const { data } = await axios.post(`https://www.mobileads.com/api/coupon/generate_coupon?phoneNo=${this.form.elements['phoneNo'].value}&userId=${this.config.userId}&studioId=${this.config.studioId}&email=${this.form.elements['email'].value}&name=${this.form.elements['name'].value}`)
+      }
 
       if (data.status) {
         if (data.code) {
-          if (this.trackers.submit) {
+          if (this.trackers.submit && !this.preview) {
             imgTrack(this.trackers.submit)
           }
           
           if (this.redirectUrl) {
-            if (this.trackers.redirect) {
+            if (this.trackers.redirect && !this.preview) {
               imgTrack(this.trackers.redirect)
             }
-            window.location = `${this.redirectUrl}?phoneNo=${data.code === this.form.elements['phoneNo'].value && this.multiple ? data.code.toString() + this.store : data.code }`
+            window.location = `${this.redirectUrl}?${this.config.uniqueCode}=${data.code}`
           }
+
+          if (this.form.callback) this.form.callback(null, true);
         } else {
           window.alert(data.message)
+          if (this.form.callback) this.form.callback(data.message);
         }
-        
       } else {
+        if (this.form.callback) this.form.callback(data.message);
         throw new Error(data.message)
       }
 
     } catch(err) {
+      if (this.form.callback) this.form.callback(err);
       console.error(err)
     }
   }
