@@ -4,34 +4,159 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Coupon - DEMO | DESKTOP</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <style>
+    html, body {
+      height: 100%;
+      width: 100%;
+    }
+    body {
+      background-image: url(img/Desktop-BG.png);
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+    }
+    #coupon_form input:not([type=image]) {
+      display: block;
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+    }
+    .container-fluid {
+      padding-top: 1rem;
+    }
+    .submit-btn {
+      float: right;
+      height: 4rem;
+    }
+    @media (max-height: 576px) {
+      .mobile-signup {
+        height: 150px;
+      }
+      .mobile-glass {
+        max-height: 220px;
+      }
+      .container-fluid {
+        padding-top: 0.9rem;
+      }
+      #formPage {
+        margin-top: -60px;
+      }
+      #coupon_form input:not([type=image]) {
+        padding: 0.2rem;
+      }
+      .mobile-end-glass {
+        max-height: 240px;
+      }
+    }
+    @media (min-width: 768px) {
+      /* .form-row {
+        margin-top: -5%;
+      } */
+      .container-fluid {
+        margin-top: 0;
+      }
+      .submit-btn {
+        height:3rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <form id="myForm">
-    <input type="text" name="name" required />
-    <input type="text" name="phoneNo" required />
-    <input type="email" name="email" required />
-    <button type="submit">Submit</button>
-  </form>
+  <div class="container-fluid d-block d-md-none">
 
-  <button id="btn-landing">landing</button>
-  
+  </div>
+  <div class="container-fluid">
+    <div class="row justify-content-start d-none d-md-flex">
+      <div class="col">
+        <img class="img-fluid" style="max-width:150px;" src="img/desktop-logo.png" alt="">
+      </div>
+      <div class="col">
+        <img class="img-fluid" src="img/desktop-mango-tagline.png" alt="">
+      </div>
+      <div class="col"></div>
+    </div>
+    <div class="row justify-content-end d-flex d-md-none">
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+            <img class="img-fluid" src="img/mobile-logo.png" alt="">
+        </div>
+      </div>
+    <div class="row align-items-center form-row" id="formRow">
+      <div class="col d-none d-md-block">
+        <img class="img-fluid" src="img/desktop-signup-cta-copy.png" id="desktopCta" alt="">
+      </div>
+      <div class="col d-none d-md-block">
+        <img class="img-fluid" style="max-height:0%;" id="desktopGlass" src="img/desktop-glass-mango.png" alt="">
+      </div>
+      <div class="col form-col" id="formCol">
+        <div class="start-page d-block d-md-none" id="startPage">
+          <img style="margin-top: -5rem;max-height:200px;" class="mobile-signup" src="img/mobile-cta-signup.png" alt="">
+          <img style="max-width:250px;float:right;" class="mobile-glass" src="img/mobile-glass-of-mango.png" alt="">
+          <img style="width:100%;" id="signupBtn" src="img/mobile-signup-btn.png" alt="">
+        </div>
+        <div class="form-page d-none d-md-block" id="formPage">
+          <img class="img-fluid" src="img/desktop-term-conditions.png" alt="" style="margin-bottom:2rem;">
+          <form id="coupon_form">
+            <input type="text" name="name" placeholder="Name" />
+            <input type="email" name="email" placeholder="Email" />
+            <input type="number" name="phoneNo" placeholder="H/P" />
+            <input class="submit-btn" type="image" src="img/desktop-submit-btn.png" />
+          </form>
+        </div>
+        <div class="end-page d-none d-md-none" id="endPage">
+          <img class="img-fluid" src="img/mobile-thankyou-redirected.png" alt="">
+          <img src="img/mobile-glass-of-mango.png" class="mobile-end-glass" alt="" style="float:right;">
+        </div>
+      </div>
+    </div>
+  </div>
   <script src="coupon.min.js"></script>
   <script>
+    const startPage = document.getElementById('startPage');
+    const endPage = document.getElementById('endPage');
+    const formPage = document.getElementById('formPage');
+    const signupBtn = document.getElementById('signupBtn');
+    const desktopCta = document.getElementById('desktopCta');
+    const desktopGlass = document.getElementById('desktopGlass');
+    const formCol = document.getElementById('formCol');
+    const formRow = document.getElementById('formRow');
+
+    signupBtn.addEventListener('mousedown', function() {
+      startPage.className = startPage.className.replace('d-block', '');
+      formPage.className = formPage.className.replace('d-none', '');
+      startPage.style.display = 'none';
+    });
+
     const coupon = new Coupon({
       userId: 3213, 
       studioId: 95, 
       tabId: 1, 
       trackId: 2612,
       form: {
-        id: 'myForm',
+        id: 'coupon_form',
         callback: function(err, result) {
           if (err) throw new Error(err);
-          console.log(result)
-        }
+          formPage.className += ' d-none'
+          formPage.className = formPage.className.replace('d-md-block', '');
+          endPage.className = endPage.className.replace('d-none', '');
+
+          if (window.screen.width >= 768) {
+            desktopCta.src = 'img/desktop-thankyou-will-redirected.png';
+            desktopGlass.style.maxHeight = '700px';
+            formCol.style.display = 'none';
+            formRow.style.marginTop = '0%';
+          }
+
+          return true; // needed to continue to redirection
+        },
+        redirectUrl: 'https://s3.amazonaws.com/demo.o2otracking.com/redeem/index.html'
       },
       store: 1, // default 1
-      multiple: true,
+      multiple: false,
       uniqueCode: 'phoneNo', // input's name
       trackers: {
         impression: ['http://google.com'],
@@ -39,13 +164,9 @@
         landing: ['http://google.com'],
         redirect: ['http://google.com']
       },
-      landing: {
-        id: 'btn-landing',
-        url: 'http://google.com'
-      },
-      redirectUrl: 'http://google.com',
+      // redirectUrl: 'http://google.com',
       preview: true
     });
-  </script> 
+  </script>
 </body>
 </html>

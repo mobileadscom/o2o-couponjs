@@ -69,8 +69,10 @@ class Coupon {
         throw new Error('We need id property for form object. Please enter the id for your form.')
       }
 
-      if (this.form.querySelectorAll('[type=submit], [type=image]').length === 0) {
-        throw new Error('We need at least one type=submit/type=image in your form.')
+      this.submitBtn = this.form.querySelectorAll('[type=submit], [type=image]');
+
+      if (this.submitBtn.length !== 1) {
+        throw new Error('We need at least/only one type=submit/type=image in your form.')
       }
   
       let fieldCheck = [];
@@ -135,6 +137,7 @@ class Coupon {
   }
 
   async submit (e) {
+    this.submitBtn[0].setAttribute('disabled', 'disabled');
     try {
       let submissionUrl = `https://www.mobileads.com/api/save_lf?contactEmail=${this.recipients || ''}&gotDatas=1`
 
@@ -183,7 +186,8 @@ class Coupon {
       }
 
       if (!this.preview) {
-        const { data } = await axios.post(`https://www.mobileads.com/api/coupon/generate_coupon?phoneNo=${this.form.elements['phoneNo'].value}&userId=${this.config.userId}&studioId=${this.config.studioId}&email=${this.form.elements['email'].value}&name=${this.form.elements['name'].value}`)
+        const result = await axios.post(`https://www.mobileads.com/api/coupon/generate_coupon?phoneNo=${this.form.elements['phoneNo'].value}&userId=${this.config.userId}&studioId=${this.config.studioId}&email=${this.form.elements['email'].value}&name=${this.form.elements['name'].value}`)
+        data = result.data;
       }
 
       if (data.status) {
@@ -191,7 +195,7 @@ class Coupon {
           if (this.trackers.submit && !this.preview) {
             imgTrack(this.trackers.submit)
           }
-          
+
           if (this.redirectUrl) {
             if (this.trackers.redirect && !this.preview) {
               imgTrack(this.trackers.redirect)
@@ -199,18 +203,25 @@ class Coupon {
             window.location = `${this.redirectUrl}?${this.config.uniqueCode}=${data.code}`
           }
 
-          if (this.form.callback) this.form.callback(null, true);
+          if (this.config.form.callback) {
+            const callbackResult = this.config.form.callback(null, true);
+            if (callbackResult && this.config.form.redirectUrl) {
+              setTimeout(() => {
+                window.location = `${this.config.form.redirectUrl}?${this.config.uniqueCode}=${data.code}`
+              }, 1000);
+            }
+          }
         } else {
           window.alert(data.message)
-          if (this.form.callback) this.form.callback(data.message);
+          if (this.config.form.callback) this.config.form.callback(data.message);
         }
       } else {
-        if (this.form.callback) this.form.callback(data.message);
+        if (this.config.form.callback) this.config.form.callback(data.message);
         throw new Error(data.message)
       }
 
     } catch(err) {
-      if (this.form.callback) this.form.callback(err);
+      if (this.config.form.callback) this.config.form.callback(err);
       console.error(err)
     }
   }
