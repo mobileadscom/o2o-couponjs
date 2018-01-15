@@ -5,168 +5,121 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Coupon - DEMO | DESKTOP</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
   <style>
-    html, body {
-      height: 100%;
-      width: 100%;
-    }
+    @import url('https://fonts.googleapis.com/css?family=Anton');
+    @import url('https://fonts.googleapis.com/css?family=Asap');
+
+    html { height:100%; }
     body {
+      position:absolute; top:0; bottom:0; right:0; left:0;
+      font-family: 'Asap', sans-serif;
       background-image: url(img/Desktop-BG.png);
       background-repeat: no-repeat;
       background-size: 100% 100%;
     }
-    #coupon_form input:not([type=image]) {
-      display: block;
-      width: 100%;
-      margin-bottom: 1rem;
-      padding: 0.5rem;
+
+    h2 {
+      font-family: 'Anton', sans-serif;
     }
-    .container-fluid {
-      padding-top: 1rem;
+
+    .btn-submit {
+      max-width: 6rem;
     }
-    .submit-btn {
-      float: right;
-      height: 4rem;
-    }
-    @media (max-height: 576px) {
-      .mobile-signup {
-        height: 150px;
-      }
-      .mobile-glass {
-        max-height: 220px;
-      }
-      .container-fluid {
-        padding-top: 0.9rem;
-      }
-      #formPage {
-        margin-top: -60px;
-      }
-      #coupon_form input:not([type=image]) {
-        padding: 0.2rem;
-      }
-      .mobile-end-glass {
-        max-height: 240px;
-      }
-    }
-    @media (min-width: 768px) {
-      /* .form-row {
-        margin-top: -5%;
-      } */
-      .container-fluid {
-        margin-top: 0;
-      }
-      .submit-btn {
-        height:3rem;
+
+    @media (min-width: 1200px) {
+      .container {
+        max-width: 1280px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container-fluid d-block d-md-none">
-
-  </div>
-  <div class="container-fluid">
-    <div class="row justify-content-start d-none d-md-flex">
-      <div class="col">
+  <div class="container">
+    <div class="row justify-content-start">
+      <div class="col-3">
         <img class="img-fluid" style="max-width:150px;" src="img/desktop-logo.png" alt="">
       </div>
-      <div class="col">
+      <div class="col-5">
         <img class="img-fluid" src="img/desktop-mango-tagline.png" alt="">
       </div>
-      <div class="col"></div>
     </div>
-    <div class="row justify-content-end d-flex d-md-none">
-        <div class="col">
-        </div>
-        <div class="col">
-        </div>
-        <div class="col">
-            <img class="img-fluid" src="img/mobile-logo.png" alt="">
-        </div>
-      </div>
-    <div class="row align-items-center form-row" id="formRow">
-      <div class="col d-none d-md-block">
+    <div class="row align-items-center">
+      <div class="col-3 col-lg">
         <img class="img-fluid" src="img/desktop-signup-cta-copy.png" id="desktopCta" alt="">
       </div>
-      <div class="col d-none d-md-block">
-        <img class="img-fluid" style="max-height:0%;" id="desktopGlass" src="img/desktop-glass-mango.png" alt="">
+      <div class="col-3 col-lg">
+        <img class="img-fluid" id="desktopGlass" src="img/desktop-glass-mango.png" alt="">
       </div>
-      <div class="col form-col" id="formCol">
-        <div class="start-page d-block d-md-none" id="startPage">
-          <img style="margin-top: -5rem;max-height:200px;" class="mobile-signup" src="img/mobile-cta-signup.png" alt="">
-          <img style="max-width:250px;float:right;" class="mobile-glass" src="img/mobile-glass-of-mango.png" alt="">
-          <img style="width:100%;" id="signupBtn" src="img/mobile-signup-btn.png" alt="">
-        </div>
-        <div class="form-page d-none d-md-block" id="formPage">
-          <img class="img-fluid" src="img/desktop-term-conditions.png" alt="" style="margin-bottom:2rem;">
-          <form id="coupon_form">
-            <input type="text" name="name" placeholder="Name" />
-            <input type="email" name="email" placeholder="Email" />
-            <input type="number" name="phoneNo" placeholder="H/P" />
-            <input class="submit-btn" type="image" src="img/desktop-submit-btn.png" />
-          </form>
-        </div>
-        <div class="end-page d-none d-md-none" id="endPage">
-          <img class="img-fluid" src="img/mobile-thankyou-redirected.png" alt="">
-          <img src="img/mobile-glass-of-mango.png" class="mobile-end-glass" alt="" style="float:right;">
-        </div>
+      <div class="col col-lg">
+        <h2>TERMS AND CONDITIONS</h2>
+        <ol>
+          <li>Fill in the form below, then tap SUBMIT.<br/><strong>Your QR code will appear on the next page.</strong></li>
+          <li>Screenshot & present this image to redeem <strong>2 free cup of Mango smoothies.</strong></li>
+          <li><strong>Present the coupon image to staff king mango at King mango Jogja on 30 November 2017.</strong></li>
+          <li><strong>Each person is entitled for 1 time redemption only.</strong></li>
+          <li><strong>First come first serve basis.</strong></li>
+        </ol>
+        <form action="" id="coupon_form">
+          <div class="form-group">
+            <input class="form-control" type="text" name="name" placeholder="Name" required>
+          </div>
+          <div class="form-group">
+            <input class="form-control" type="email" name="email" placeholder="Email" required>
+          </div>
+          <div class="form-group">
+            <input class="form-control" type="number" name="phoneNo" placeholder="H/P" required>
+          </div>
+          <input class="btn-submit" type="image" src="img/desktop-submit-btn.png" />
+        </form>
       </div>
     </div>
   </div>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
   <script src="coupon.min.js"></script>
   <script>
-    const startPage = document.getElementById('startPage');
-    const endPage = document.getElementById('endPage');
-    const formPage = document.getElementById('formPage');
-    const signupBtn = document.getElementById('signupBtn');
-    const desktopCta = document.getElementById('desktopCta');
-    const desktopGlass = document.getElementById('desktopGlass');
-    const formCol = document.getElementById('formCol');
-    const formRow = document.getElementById('formRow');
+  const coupon = new Coupon({
+    userId: 3213,
+    studioId: 95,
+    tabId: 1,
+    trackId: 2612,
+    campaignId: 'b46fd1e21b2d7ff50bac2ce6fd5dfdc3',
+    dsp: 'dsp',
+    inventory: 'inventory',
+    exchange: 'exchange',
+    form: {
+      id: 'coupon_form',
+      callback: function(err, result) {
+        if (err) throw new Error(err);
+        formPage.className += ' d-none'
+        formPage.className = formPage.className.replace('d-md-block', '');
+        endPage.className = endPage.className.replace('d-none', '');
 
-    signupBtn.addEventListener('mousedown', function() {
-      startPage.className = startPage.className.replace('d-block', '');
-      formPage.className = formPage.className.replace('d-none', '');
-      startPage.style.display = 'none';
-    });
+        if (window.screen.width >= 768) {
+          desktopCta.src = 'img/desktop-thankyou-will-redirected.png';
+          desktopGlass.style.maxHeight = '700px';
+          formCol.style.display = 'none';
+          formRow.style.marginTop = '0%';
+        }
 
-    const coupon = new Coupon({
-      userId: 3213, 
-      studioId: 95, 
-      tabId: 1, 
-      trackId: 2612,
-      form: {
-        id: 'coupon_form',
-        callback: function(err, result) {
-          if (err) throw new Error(err);
-          formPage.className += ' d-none'
-          formPage.className = formPage.className.replace('d-md-block', '');
-          endPage.className = endPage.className.replace('d-none', '');
-
-          if (window.screen.width >= 768) {
-            desktopCta.src = 'img/desktop-thankyou-will-redirected.png';
-            desktopGlass.style.maxHeight = '700px';
-            formCol.style.display = 'none';
-            formRow.style.marginTop = '0%';
-          }
-
-          return true; // needed to continue to redirection
-        },
-        redirectUrl: 'https://s3.amazonaws.com/demo.o2otracking.com/redeem/index.html'
+        return true; // needed to continue to redirection
       },
-      store: 1, // default 1
-      multiple: false,
-      uniqueCode: 'phoneNo', // input's name
-      trackers: {
-        impression: ['http://google.com'],
-        submit: ['http://google.com'],
-        landing: ['http://google.com'],
-        redirect: ['http://google.com']
-      },
-      // redirectUrl: 'http://google.com',
-      preview: true
-    });
+      redirectUrl: 'http://demo.o2otracking.com/live/redeem/index.html'
+    },
+    store: 1, // default 1
+    multiple: false,
+    uniqueCode: 'phoneNo', // input's name
+    trackers: {
+      impression: ['http://google.com'],
+      submit: ['http://google.com'],
+      landing: ['http://google.com'],
+      redirect: ['http://google.com']
+    },
+    // redirectUrl: 'http://google.com',
+    // preview: true
+  });
   </script>
 </body>
 </html>
