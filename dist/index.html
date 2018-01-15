@@ -12,11 +12,14 @@
 
     html { height:100%; }
     body {
-      position:absolute; top:0; bottom:0; right:0; left:0;
+      height: 100%
       font-family: 'Asap', sans-serif;
-      background-image: url(img/Desktop-BG.png);
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
+      /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fbfaf6+0,d8dadb+100 */
+      background: #fbfaf6; /* Old browsers */
+      background: -moz-radial-gradient(center, ellipse cover, #fbfaf6 0%, #d8dadb 100%); /* FF3.6-15 */
+      background: -webkit-radial-gradient(center, ellipse cover, #fbfaf6 0%,#d8dadb 100%); /* Chrome10-25,Safari5.1-6 */
+      background: radial-gradient(ellipse at center, #fbfaf6 0%,#d8dadb 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fbfaf6', endColorstr='#d8dadb',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
     }
 
     h2 {
@@ -25,6 +28,52 @@
 
     .btn-submit {
       max-width: 6rem;
+    }
+
+    .col-form h2 {
+      font-size: 22px;
+    }
+
+    .col-form ol li {
+      font-size: 12px;
+    }
+
+    .col-form input {
+      font-size: 12px;
+    }
+
+    .col-end {
+      display: none;
+    }
+
+    .page-end > *:not(:last-child):not(.mobile-head) {
+      display: none!important;
+    }
+
+    .page-end > .col-end {
+      display: block;
+    }
+
+    @media (min-width: 768px) {
+      .col-form h2 {
+        font-size: 32px;
+      }
+
+      .col-form ol li {
+        font-size: 16px;
+      }
+
+      .col-form input {
+        font-size: 16px;
+      }
+
+      .page-end > *:not(:last-child, :first-child) {
+        display: none!important;
+      }
+
+      .col-end img {
+        max-width: 50%;
+      }
     }
 
     @media (min-width: 1200px) {
@@ -36,22 +85,30 @@
 </head>
 <body>
   <div class="container">
-    <div class="row justify-content-start">
-      <div class="col-3">
+    <div class="d-none d-md-flex row justify-content-start">
+      <div class="col col-lg-3">
         <img class="img-fluid" style="max-width:150px;" src="img/desktop-logo.png" alt="">
       </div>
-      <div class="col-5">
+      <div class="col col-lg-5">
         <img class="img-fluid" src="img/desktop-mango-tagline.png" alt="">
       </div>
     </div>
-    <div class="row align-items-center">
-      <div class="col-3 col-lg">
+    <div class="row align-items-center page-form" id="page">
+      <div class="d-none d-md-block col-md-4 col-lg">
         <img class="img-fluid" src="img/desktop-signup-cta-copy.png" id="desktopCta" alt="">
       </div>
-      <div class="col-3 col-lg">
+      <div class="d-none d-lg-block col-lg">
         <img class="img-fluid" id="desktopGlass" src="img/desktop-glass-mango.png" alt="">
       </div>
-      <div class="col col-lg">
+      <div class="col-12 d-flex d-md-none justify-content-between align-items-center mobile-head">
+        <img style="max-width:160px;" id="mobile-cta" src="img/mobile-cta-signup.png" alt="">
+        <img src="img/mobile-logo.png" class="align-self-start" alt="">
+      </div>
+      <div class="col-12 d-flex d-md-none flex-column align-items-end" id="mobile-land">
+        <img style="max-width:250px;" class="mobile-glass" src="img/mobile-glass-of-mango.png" class="align-self-end" alt="">
+        <img style="width:100%;" id="btn-signup" src="img/mobile-signup-btn.png" alt="">
+      </div>
+      <div class="col-12 col-md col-lg col-form d-none d-md-block" id="col-form">
         <h2>TERMS AND CONDITIONS</h2>
         <ol>
           <li>Fill in the form below, then tap SUBMIT.<br/><strong>Your QR code will appear on the next page.</strong></li>
@@ -73,13 +130,37 @@
           <input class="btn-submit" type="image" src="img/desktop-submit-btn.png" />
         </form>
       </div>
+      <div class="col-12 col-end" id="col-end">
+        <div class="d-flex justify-content-md-between align-items-center flex-column flex-md-row">
+          <img class="img-fluid" id="img-thank-you" src="img/mobile-thankyou-redirected.png" alt="">
+          <img src="img/mobile-glass-of-mango.png" id="img-glass-mango" alt="" class="align-self-end">
+        </div>
+      </div>
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+  <script>
+    var mobileCTA = document.getElementById('mobile-cta');
+    var mobileLand = document.getElementById('mobile-land');
+    var colForm = document.getElementById('col-form');
+    var colEnd = document.getElementById('col-end');
+    var btnSignup = document.getElementById('btn-signup');
+
+    btnSignup.addEventListener('mousedown', function() {
+      mobileCTA.style.display = 'none';
+      mobileCTA.parentElement.className = mobileCTA.parentElement.className.replace('justify-content-between', 'justify-content-end');
+      mobileLand.className = mobileLand.className.replace('d-flex','d-none');
+      colForm.className = colForm.className.replace('d-none', '');
+    });
+
+  </script>
   <script src="coupon.min.js"></script>
   <script>
+  var imgThankYou = document.getElementById('img-thank-you');
+  var imgGlassMango = document.getElementById('img-glass-mango');
+  var page = document.getElementById('page');
   const coupon = new Coupon({
     userId: 3213,
     studioId: 95,
@@ -93,15 +174,14 @@
       id: 'coupon_form',
       callback: function(err, result) {
         if (err) throw new Error(err);
-        formPage.className += ' d-none'
-        formPage.className = formPage.className.replace('d-md-block', '');
-        endPage.className = endPage.className.replace('d-none', '');
+        page.className = page.className.replace('page-form', 'page-end');
+        // colForm.className += ' d-none';
+        // colForm.className = colForm.className.replace('d-md-block', '');
+        // colEnd.className = colEnd.className.replace('d-none', 'd-flex');
 
         if (window.screen.width >= 768) {
-          desktopCta.src = 'img/desktop-thankyou-will-redirected.png';
-          desktopGlass.style.maxHeight = '700px';
-          formCol.style.display = 'none';
-          formRow.style.marginTop = '0%';
+          imgThankYou.src = 'img/desktop-thankyou-will-redirected.png';
+          imgGlassMango.src = 'img/desktop-glass-mango.png'
         }
 
         return true; // needed to continue to redirection
