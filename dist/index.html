@@ -85,36 +85,38 @@
 </head>
 <body>
   <div class="container">
-    <div class="d-none d-md-flex row justify-content-start">
-      <div class="col col-lg-3">
-        <img class="img-fluid" style="max-width:150px;" src="img/desktop-logo.png" alt="">
+    <div class="d-none d-md-flex row justify-content-start" style="margin-top:25px;">
+      <div class="col col-lg-2">
+        <img class="img-fluid" style="max-width:100px;" src="img/desktop-logo.png" alt="">
       </div>
-      <div class="col col-lg-5">
-        <img class="img-fluid" src="img/desktop-mango-tagline.png" alt="">
+      <div class="col col-lg-3">
+        <img class="img-fluid" style="max-width:300px;" src="img/desktop-mango-tagline.png" alt="">
       </div>
     </div>
     <div class="row align-items-center page-form" id="page">
-      <div class="d-none d-md-block col-md-4 col-lg">
+      <div class="d-none d-md-block col-md-3">
         <img class="img-fluid" src="img/desktop-signup-cta-copy.png" id="desktopCta" alt="">
+        <!-- <div style="font-family: 'Anton', sans-serif;font-size:128.853333px;">SIGN UP & <span style="color:#f09a00;font-size:75.56px;">GET FREE<br/>2 CUPS OF SMOOTHIE KING</span></div> -->
       </div>
-      <div class="d-none d-lg-block col-lg">
+      <div class="d-none d-lg-block col-md-3">
         <img class="img-fluid" id="desktopGlass" src="img/desktop-glass-mango.png" alt="">
       </div>
       <div class="col-12 d-flex d-md-none justify-content-between align-items-center mobile-head">
-        <img style="max-width:160px;" id="mobile-cta" src="img/mobile-cta-signup.png" alt="">
+        <!-- <div id="mobile-cta" style="font-family: 'Anton', sans-serif;font-size:50.22px;line-height: 35px;margin-top: 10px;">SIGN UP &<br/>GET FREE<br/><span style="color:#f09a00;">2 CUPS OF</span><br/><span style="color:#f09a00;font-family: 'Anton', sans-serif;font-size:35px;width: 100%;">SMOOTHIE KING</span></div> -->
+        <img src="img/mobile-cta-signup.png" id="mobile-cta" style="max-width:160px;" alt="">
         <img src="img/mobile-logo.png" class="align-self-start" alt="">
       </div>
       <div class="col-12 d-flex d-md-none flex-column align-items-end" id="mobile-land">
         <img style="max-width:250px;" class="mobile-glass" src="img/mobile-glass-of-mango.png" class="align-self-end" alt="">
         <img style="width:100%;" id="btn-signup" src="img/mobile-signup-btn.png" alt="">
       </div>
-      <div class="col-12 col-md col-lg col-form d-none d-md-block" id="col-form">
+      <div class="col-12 col-md col-form d-none d-md-block" id="col-form">
         <h2>TERMS AND CONDITIONS</h2>
         <ol>
-          <li>Fill in the form below, then tap SUBMIT.<br/><strong>Your QR code will appear on the next page.</strong></li>
-          <li>Screenshot & present this image to redeem <strong>2 free cup of Mango smoothies.</strong></li>
-          <li><strong>Present the coupon image to staff king mango at King mango Jogja on 30 November 2017.</strong></li>
-          <li><strong>Each person is entitled for 1 time redemption only.</strong></li>
+          <li>Fill in the form below, then tap on SUBMIT.<br/><strong>Your QR code will appear on the next page.</strong></li>
+          <li>Screenshot & present this image to redeem <strong>2 free cups of Mango Smoothies.</strong></li>
+          <li><strong>Present the coupon to any of our King Mango's staff at Jogja outlet, on 30th November 2017.</strong></li>
+          <li><strong>One (1) redemption per customer only.</strong></li>
           <li><strong>First come first serve basis.</strong></li>
         </ol>
         <form action="" id="coupon_form">
@@ -127,7 +129,9 @@
           <div class="form-group">
             <input class="form-control" type="number" name="phoneNo" placeholder="H/P" required>
           </div>
-          <input class="btn-submit" type="image" src="img/desktop-submit-btn.png" />
+          <div class="d-flex justify-content-end align-items-center">
+            <input class="btn-submit" type="image" src="img/desktop-submit-btn.png" />
+          </div>
         </form>
       </div>
       <div class="col-12 col-end" id="col-end">
@@ -175,9 +179,6 @@
       callback: function(err, result) {
         if (err) throw new Error(err);
         page.className = page.className.replace('page-form', 'page-end');
-        // colForm.className += ' d-none';
-        // colForm.className = colForm.className.replace('d-md-block', '');
-        // colEnd.className = colEnd.className.replace('d-none', 'd-flex');
 
         if (window.screen.width >= 768) {
           imgThankYou.src = 'img/desktop-thankyou-will-redirected.png';
