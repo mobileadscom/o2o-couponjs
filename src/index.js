@@ -175,29 +175,64 @@ class Coupon {
         code: this.form.elements[this.config.uniqueCode].value
       }
 
-      if (!this.preview) {
-        const result = await axios.post(`https://www.mobileads.com/api/coupon/generate_coupon?uniqueCode=${this.form.elements[this.config.uniqueCode].value}&userId=${this.config.userId}&studioId=${this.config.studioId}&email=${this.form.elements['email'].value}&name=${this.form.elements['name'].value}&phoneNo=${this.form.elements['phoneNo'].value}`)
-        data = result.data;
-      }
+      let existedFlag = 0;
 
-      if (data.status) {
-        if (data.code) {
-          this.code = data.code;
-          if (this.trackers.submit && !this.preview) {
-            imgTrack(this.trackers.submit)
-            this.track('submit')
+      if (!this.preview) {
+        if (Array.isArray(this.store)) {
+          console.log('multistore submit')
+          for (let store of this.store) {
+            const result = await axios.post(`https://www.mobileads.com/api/coupon/generate_coupon?uniqueCode=${this.form.elements[this.config.uniqueCode].value}${store}&userId=${this.config.userId}&studioId=${this.config.studioId}&email=${this.form.elements['email'].value}&name=${this.form.elements['name'].value}&phoneNo=${this.form.elements['phoneNo'].value}${store}`)
+            data = result.data;
+            if (data.message === 'Coupon already existed.') existedFlag +=1
+            console.log(`store ${store}`, data.status, data.code)
           }
-          this.submit();
+
+          if (this.store.length === existedFlag) {
+            vex.dialog.alert(data.message);
+            this.submitBtn[0].style.opacity = 1;
+            this.submitBtn[0].removeAttribute('disabled');
+          }
+
+          if (existedFlag === 0) {
+            this.code = this.form.elements[this.config.uniqueCode].value;
+            if (this.trackers.submit && !this.preview) {
+              imgTrack(this.trackers.submit)
+              this.track('submit')
+            }
+            this.submit();
+          }
         } else {
-          vex.dialog.alert(data.message);
-          this.submitBtn[0].style.opacity = 1;
-          this.submitBtn[0].removeAttribute('disabled');
-          // if (this.config.form.callback) this.config.for`m.callback(data.message);
+          console.log('single store submit')
+          const result = await axios.post(`https://www.mobileads.com/api/coupon/generate_coupon?uniqueCode=${this.form.elements[this.config.uniqueCode].value}&userId=${this.config.userId}&studioId=${this.config.studioId}&email=${this.form.elements['email'].value}&name=${this.form.elements['name'].value}&phoneNo=${this.form.elements['phoneNo'].value}`)
+          data = result.data;
+
+          if (data.status) {
+            if (data.code) {
+              this.code = data.code;
+              if (this.trackers.submit && !this.preview) {
+                imgTrack(this.trackers.submit)
+                this.track('submit')
+              }
+              this.submit();
+            } else {
+              // if (!this.multiple) {
+              vex.dialog.alert(data.message);
+              this.submitBtn[0].style.opacity = 1;
+              this.submitBtn[0].removeAttribute('disabled');
+              // } else {
+                // if (this.config.form.callback) this.config.form.callback(data.message);
+              // }
+            }
+          } else {
+            if (this.config.form.callback) this.config.form.callback(data.message);
+            throw new Error(data.message)
+          }
         }
       } else {
-        if (this.config.form.callback) this.config.form.callback(data.message);
-        throw new Error(data.message)
+        this.code = this.form.elements[this.config.uniqueCode].value;
+        this.submit();
       }
+
       return await false
     } catch (err) {
       if (this.config.form.callback) this.config.form.callback(err);

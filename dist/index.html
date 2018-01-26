@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Coupon - DEMO | DESKTOP</title>
+  <title>COUPON - DEMO | LEADGEN</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
   <style>
     @import url('https://fonts.googleapis.com/css?family=Anton');
@@ -14,20 +14,19 @@
     body {
       height: 100%
       font-family: 'Asap', sans-serif;
-      /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fbfaf6+0,d8dadb+100 */
-      background: #fbfaf6; /* Old browsers */
-      background: -moz-radial-gradient(center, ellipse cover, #fbfaf6 0%, #d8dadb 100%); /* FF3.6-15 */
-      background: -webkit-radial-gradient(center, ellipse cover, #fbfaf6 0%,#d8dadb 100%); /* Chrome10-25,Safari5.1-6 */
-      background: radial-gradient(ellipse at center, #fbfaf6 0%,#d8dadb 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fbfaf6', endColorstr='#d8dadb',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+      background: #E7E8E2;
     }
 
-    h2 {
+    h2, h3 {
       font-family: 'Anton', sans-serif;
     }
 
     .btn-submit {
       max-width: 6rem;
+    }
+
+    .col-form {
+      margin-top: 100px;
     }
 
     .col-form h2 {
@@ -52,9 +51,20 @@
 
     .page-end > .col-end {
       display: block;
+      margin-top: 105px;
+    }
+
+    #desktopLogo {
+      height: 100px;
     }
 
     @media (min-width: 768px) {
+      .heading {
+        margin-left:-30px;
+      }
+      .col-form {
+        margin-top: 0;
+      }
       .col-form h2 {
         font-size: 32px;
       }
@@ -74,40 +84,92 @@
       .col-end img {
         max-width: 50%;
       }
+      #desktopGlass {
+        max-width: 600%;
+        margin-left: -450%;
+        position: relative;
+        z-index: -1;
+        opacity: 0.3;
+      }
+      #desktopCta {
+        position: relative;
+        z-index: 1;
+      }
+      .page-end > .col-end {
+        margin-top: 0;
+      }
+      #tagline {
+        margin-left:2px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      #desktopGlass {
+        max-width: 130%;
+        margin-left: -15%;
+        position: relative;
+        opacity: 1;
+      }
+      /* #tagline {
+        margin-top:10px;
+        margin-left:-45px;
+      } */
+      /* #desktopLogo {
+        margin-left:-5px;
+      } */
     }
 
     @media (min-width: 1200px) {
+      .heading {
+        margin-left:32px;
+      }
       .container {
         max-width: 1280px;
+      }
+      #desktopGlass {
+        max-width: 110%;
+        margin-left: 0;
+      }
+      /* #desktopLogo {
+        margin-left: 0;
+      } */
+      #tagline {
+        margin-left: -10px;
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="d-none d-md-flex row justify-content-start" style="margin-top:25px;">
-      <div class="col col-lg-2">
-        <img class="img-fluid" style="max-width:100px;" src="img/desktop-logo.png" alt="">
+    <div class="d-none d-md-flex row justify-content-start heading" style="margin-top:15px;">
+      <div class="col-2">
+        <img id="desktopLogo" src="img/logo.png" alt="">
       </div>
-      <div class="col col-lg-3">
-        <img class="img-fluid" style="max-width:300px;" src="img/desktop-mango-tagline.png" alt="">
+      <div class="col-5">
+        <img class="img-fluid" style="max-width:300px;" id="tagline" src="img/desktop-mango-tagline.png" alt="">
       </div>
     </div>
     <div class="row align-items-center page-form" id="page">
-      <div class="d-none d-md-block col-md-3">
-        <img class="img-fluid" src="img/desktop-signup-cta-copy.png" id="desktopCta" alt="">
-        <!-- <div style="font-family: 'Anton', sans-serif;font-size:128.853333px;">SIGN UP & <span style="color:#f09a00;font-size:75.56px;">GET FREE<br/>2 CUPS OF SMOOTHIE KING</span></div> -->
+      <div class="d-none d-md-block col-md-4 col-lg-3">
+        <div style="margin-top:15px;" id="desktopCta">
+          <h3>SIGN UP &amp; GET FREE</h3>
+          <h2 style="color:#ED8609;">2 CUPS OF SMOOTHIE KING</h2>
+        </div>
+        <!-- <img class="img-fluid" src="img/desktop-signup-cta-copy.png" id="desktopCta" alt=""> -->
       </div>
-      <div class="d-none d-lg-block col-md-3">
+      <div class="d-none d-md-block col-md-1 col-lg-4" style="padding-right:0;padding-left:0;">
         <img class="img-fluid" id="desktopGlass" src="img/desktop-glass-mango.png" alt="">
       </div>
-      <div class="col-12 d-flex d-md-none justify-content-between align-items-center mobile-head">
-        <!-- <div id="mobile-cta" style="font-family: 'Anton', sans-serif;font-size:50.22px;line-height: 35px;margin-top: 10px;">SIGN UP &<br/>GET FREE<br/><span style="color:#f09a00;">2 CUPS OF</span><br/><span style="color:#f09a00;font-family: 'Anton', sans-serif;font-size:35px;width: 100%;">SMOOTHIE KING</span></div> -->
-        <img src="img/mobile-cta-signup.png" id="mobile-cta" style="max-width:160px;" alt="">
-        <img src="img/mobile-logo.png" class="align-self-start" alt="">
+      <div class="col-12 d-md-none mobile-head">
+          <div style="max-width:230px;margin-top:15px;" id="mobile-cta">
+            <h3>SIGN UP &amp; GET FREE</h3>
+            <h2 style="color: #ED8609;">2 CUPS OF SMOOTHIE KING</h2>
+          </div>
+          <!-- <img src="img/mobile-cta-signup.png" id="mobile-cta" style="max-width:200px;margin-top:15px;" alt=""> -->
+          <img src="img/mobile-logo.png" style="position:absolute;right:0;top:15px;" alt="">
       </div>
       <div class="col-12 d-flex d-md-none flex-column align-items-end" id="mobile-land">
-        <img style="max-width:250px;" class="mobile-glass" src="img/mobile-glass-of-mango.png" class="align-self-end" alt="">
+        <img class="mobile-glass" src="img/mobile-glass-of-mango.png" class="align-self-end" alt="">
         <img style="width:100%;" id="btn-signup" src="img/mobile-signup-btn.png" alt="">
       </div>
       <div class="col-12 col-md col-form d-none d-md-block" id="col-form">
@@ -160,17 +222,17 @@
     });
 
   </script>
-  <script src="../dist/coupon.min.js"></script>
+  <script src="coupon.min.js"></script>
   <script>
   var imgThankYou = document.getElementById('img-thank-you');
   var imgGlassMango = document.getElementById('img-glass-mango');
   var page = document.getElementById('page');
   const coupon = new Coupon({
     userId: 3213,
-    studioId: 95,
+    studioId: 96,
     tabId: 1,
-    trackId: 2612,
-    campaignId: 'b46fd1e21b2d7ff50bac2ce6fd5dfdc3',
+    trackId: 2617,
+    campaignId: '969d5d79fc6fe95a6a209c95d304091d',
     dsp: 'dsp',
     inventory: 'inventory',
     exchange: 'exchange',
@@ -187,7 +249,7 @@
 
         return true; // needed to continue to redirection
       },
-      redirectUrl: 'http://demo.o2otracking.com/live/redeem/index.html'
+      redirectUrl: 'http://demo.o2otracking.com/redeem/index.html'
     },
     store: 1, // default 1
     multiple: false,
@@ -199,7 +261,7 @@
       redirect: ['http://google.com']
     },
     // redirectUrl: 'http://google.com',
-    // preview: true
+    preview: false
   });
   </script>
 </body>
